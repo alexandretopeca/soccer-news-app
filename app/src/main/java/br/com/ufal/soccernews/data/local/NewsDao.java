@@ -1,0 +1,21 @@
+package br.com.ufal.soccernews.data.local;
+
+import java.util.List;
+
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import br.com.ufal.soccernews.domain.News;
+
+@Dao
+public interface NewsDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void save(News news);
+
+    @Query("SELECT * FROM news WHERE favorite = 1")
+    LiveData<List<News>> loadFavoriteNews();
+
+}
